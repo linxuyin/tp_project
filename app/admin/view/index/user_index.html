@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>用户列表 - QAdmin后台模板 - 普通版演示</title>
+    <meta name="keywords" content="qadmin,qadmin模板,后台模板,qadmin后台模板">
+    <meta name="description" content="qadmin是一个轻量级后台模板,基于layui框架开发,简洁而不简单">
+    <link rel="stylesheet" href="__CSS__/layui.css">
+    <link rel="stylesheet" href="__CSS__/style.css">
+    <script src="__JS__/layui.js"></script>
+    <script src="__JS__/jquery-3.3.1.min.js"></script>
+    <script src="__JS__/vue.min.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <!--顶栏-->
+    <header>
+        <h1>Qadmin</h1>
+        <div class="breadcrumb">
+            <i class="layui-icon">&#xe715;</i>
+            <ul>
+                <li v-for="vo in address">
+                    <a v-text="vo.name" :href="vo.url"></a> <span>/</span>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="main">
+
+        <!--左栏-->
+
+        <div class="left">
+
+            <ul class="cl">
+                <!--顶级分类-->
+                <li>
+                    <a href="">
+                        <i class="layui-icon">&#xe68e;</i>
+                        <span>首页</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="layui-icon">&#xe653;</i>
+                        <span onclick="show()">基本组件</span>
+                        <i class="layui-icon arrow" >&#xe61a;</i>
+                        <i class="layui-icon active">&#xe623;</i>
+                        <div>
+                            <a href="javascript:;" :class="{active:vo2.active}" @click="onActive(index,index2)" >layui基本组件</a>
+                            <i v-show="vo2.active" class="layui-icon active">&#xe623;</i>
+                            <a href="javascript:;" :class="{active:vo2.active}" @click="onActive(index,index2)" >layui内置模块</a>
+                            <i v-show="vo2.active" class="layui-icon active">&#xe623;</i>
+                            <a href="javascript:;" :class="{active:vo2.active}" @click="onActive(index,index2)" >提示框</a>
+                            <i v-show="vo2.active" class="layui-icon active">&#xe623;</i>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="layui-icon">&#xe612;</i>
+                        <span onclick="show()">用户管理</span>
+                        <i class="layui-icon arrow" >&#xe61a;</i>
+                        <i class="layui-icon active">&#xe623;</i>
+                        <div>
+                            <a href="userIndex">用户列表</a>
+                            <i v-show="vo2.active" class="layui-icon active">&#xe623;</i>
+                            <a href="userAdd">添加用户</a>
+                            <i v-show="vo2.active" class="layui-icon active">&#xe623;</i>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="layui-icon">&#xe620;</i>
+                        <span>文章管理</span>
+                        <i class="layui-icon arrow" >&#xe61a;</i>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="layui-icon">&#xe609;</i>
+                        <span>系统设置</span>
+                        <i class="layui-icon arrow" >&#xe61a;</i>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!--右侧-->
+        <div class="right p20">
+            
+
+
+<div class="layui-row">
+    <div class="layui-col-lg8">
+        <a href="?/admin/user/index/connect/qq.html" class="layui-btn">QQ</a>
+        <a href="?/admin/user/index/connect/weibo.html" class="layui-btn">微博</a>
+        <a href="?/admin/user/index/connect/weixin.html" class="layui-btn">微信</a>
+        <a href="?/admin/user/index/connect/alipay.html" class="layui-btn">支付宝</a>
+        <a href="?/admin/user/index/connect/xcx.html" class="layui-btn">小程序</a>
+    </div>
+    <form action="doSearch">
+     <div class="layui-col-lg4" style="text-align: right">
+        <div class="layui-input-inline" style="width: 300px">
+            <input type="text" name="search" value="" placeholder="用户名搜索" class="layui-input key">
+        </div>
+<!--         <button type="button" class="layui-btn sou" lay-submit="" lay-filter="submit">搜索</button>-->
+         <input type="submit" class="layui-btn sou" lay-submit="" >
+     </div>
+     </form>
+</div>
+
+<table class="layui-table layui-form">
+
+    <thead>
+    <tr>
+        <th><a href="?/admin/user/index/order/uid.html">UID</a></th>
+        <th>用户名</th>
+        <th>昵称</th>
+        <th>qq</th>
+        <th>邮箱</th>
+        <th>手机</th>
+        <th><a href="?/admin/user/index/order/reg_time.html">注册时间</a></th>
+        <th><a href="?/admin/user/index/order/login_time.html">登录时间</a></th>
+        <th><a href="?/admin/user/index/order/login.html">登录次数</a></th>
+        <th><a href="?/admin/user/index/order/state.html">状态</a></th>
+        <th>认证</th>
+        <th>关联</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {foreach $user as $k=>$v}
+    <tr class="id{$v['UID']}">
+        <td>{$v['UID']}</td>
+        <td>{$v['username']}</td>
+        <td>{$v['nickname']}</td>
+        <td>{$v['qq']}</td>
+        <td>{$v['email']}</td>
+        <td>{$v['tel']}</td>
+        <td>{$v['regtime']}</td>
+        <td></td>
+        <td></td>
+        <td>
+            <input type="checkbox" lay-filter="state" data-uid="{$v['UID']}" lay-text="正常|封禁" name="switch" checked="" lay-skin="switch">
+        </td>
+        <td>0</td>
+        <td>
+            xcx
+        </td>
+        <td><a href="userUpdate?UID={$v['UID']}">修改</a></td>
+    </tr>
+    {/foreach}
+    </tbody>
+</table>
+            <div class="page">
+                {$page|raw}
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__JS__/config.js"></script>
+<script src="__JS__/script.js"></script>
+</body>
+</html>
+
